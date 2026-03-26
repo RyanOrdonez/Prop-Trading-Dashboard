@@ -95,6 +95,26 @@ npm run dev        # starts Vite + Electron in dev mode
 npm run package    # builds a portable Windows executable
 ```
 
+## Roadmap
+
+### Expanded Firm Coverage
+Currently supports LucidDirect, LucidPro, LucidFlex, and Apex EOD account types. The goal is to build a comprehensive ruleset library covering as many prop firms as possible — My Funded Futures, Topstep, Earn2Trade, The Trading Pit, and others — so a user can select something like a "MFF 50K Pro" account and have all payout rules, consistency limits, drawdown thresholds, and tiered withdrawal caps preconfigured automatically.
+
+### Analytics Tab
+A dedicated analytics view that surfaces patterns in the user's own trading data through algorithmic analysis (not AI). Planned insights include:
+
+- **Optimal trading windows** — P&L distribution by time of day and day of week to identify when performance is strongest
+- **Position sizing analysis** — Performance broken down by contract count to find the most profitable sizing
+- **Trade duration profiling** — Win rate and expectancy segmented by hold time (scalps vs. longer trades)
+- **Per-account-type comparison** — How performance differs across firm types and rule structures
+- **Streak and drawdown patterns** — Identifying behavioral tendencies after consecutive wins or losses
+
+### AI Tab
+Two distinct features powered by an LLM (e.g., GPT-4) with full context over the user's trading data:
+
+- **Automated Trade Analysis** — Generates an in-depth performance review based on the user's analytics data, highlighting strengths, weaknesses, and actionable suggestions for improving execution, risk management, and consistency
+- **Conversational Assistant** — A chat interface where the user can ask questions about their trading history, stats, and patterns in natural language (e.g., "What's my win rate on Mondays?" or "How do I perform after a red day?")
+
 ## Why I Built This
 
 I actively trade prop firm accounts and needed a way to track my performance against each firm's specific payout rules — consistency limits, tiered withdrawal caps, minimum profitable days, and more. Nothing on the market handled multiple firms with different rule structures in one place, so I built it myself. The data pipeline (CSV → parsed trades → aggregated stats → eligibility checks) mirrors the kind of ETL and analytics work I enjoy.
