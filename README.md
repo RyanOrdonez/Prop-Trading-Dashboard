@@ -2,6 +2,33 @@
 
 A desktop analytics platform for tracking, analyzing, and optimizing performance across multiple proprietary trading accounts. Built to solve a real problem — prop firms have strict payout rules (profit goals, consistency limits, drawdown thresholds) that vary by account type, and no existing tool consolidates it all into one view.
 
+## Screenshots
+
+### Dashboard
+KPI cards, cycle profit curve, account snapshot, and performance metrics at a glance.
+
+![Dashboard](screenshots/dashboard.PNG)
+
+### Payout Tracker
+Real-time eligibility checks against firm-specific rules — profit goals, consistency ratios, minimum profitable days, and balance thresholds. Includes a per-day progress table showing how eligibility evolved over time.
+
+![Payout Tracker](screenshots/payout.PNG)
+
+### Journal
+Calendar view with daily P&L, win rates, and economic event markers (FOMC, NFP, CPI, etc.). Sortable day-by-day log below.
+
+![Journal](screenshots/journal.PNG)
+
+### Day Detail
+Full breakdown of a single trading day — individual trades with entry/exit timestamps, durations, win/loss analysis, max runup, and max drawdown.
+
+![Day Detail](screenshots/day-detail.PNG)
+
+### Settings
+Account management with firm-specific presets (LucidDirect, LucidPro, LucidFlex, Apex EOD), data export, and backup.
+
+![Settings](screenshots/settings.PNG)
+
 ## What It Does
 
 **Import a CSV of your daily trades → get instant statistical breakdowns, running P&L curves, and real-time payout eligibility tracking.**
