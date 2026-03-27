@@ -115,6 +115,17 @@ Two distinct features powered by an LLM (e.g., GPT-4) with full context over the
 - **Automated Trade Analysis** — Generates an in-depth performance review based on the user's analytics data, highlighting strengths, weaknesses, and actionable suggestions for improving execution, risk management, and consistency
 - **Conversational Assistant** — A chat interface where the user can ask questions about their trading history, stats, and patterns in natural language (e.g., "What's my win rate on Mondays?" or "How do I perform after a red day?")
 
+## Technical Decisions
+
+**SQLite over PostgreSQL**
+The app is a local desktop tool with a single user — no server, no network, no shared state. SQLite via sql.js/WASM runs entirely in the Electron renderer process, meaning zero installation beyond the app itself. PostgreSQL would require a running database server, which adds friction for an offline single-user workflow. The tradeoff is no concurrent multi-user access, which is irrelevant for the use case. WAL journaling mode keeps write performance solid even with frequent intraday inserts.
+
+**Electron over a web app**
+Trading CSVs live on the local filesystem. A web app would require either uploading files to a server (a privacy concern for financial data) or relying on the File System Access API (no persistent access, more UX friction). Electron gives direct filesystem access, so CSV import is a simple file picker with no upload step. The renderer is still React + Vite, so the development experience is nearly identical to a standard web app — Electron just wraps it with native OS access.
+
+**How fill aggregation handles edge cases**
+Prop firm CSV exports record individual fills, not logical trades. A single trade executed across multiple partial fills arrives as separate rows with different timestamps and quantities. The aggregation pipeline handles this by scanning for overlapping position intervals: if fill B opens before fill A's net position has closed (tracked via cumulative quantity running total), the two fills are merged into one logical trade. This correctly handles split fills, partial exits, and scale-in sequences without requiring any manual tagging in the source data.
+
 ## Why I Built This
 
 I actively trade prop firm accounts and needed a way to track my performance against each firm's specific payout rules — consistency limits, tiered withdrawal caps, minimum profitable days, and more. Nothing on the market handled multiple firms with different rule structures in one place, so I built it myself. The data pipeline (CSV → parsed trades → aggregated stats → eligibility checks) mirrors the kind of ETL and analytics work I enjoy.
